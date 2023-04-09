@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+p,
+button,
+h1 {
+  font-family: "Tilt Prism", cursive;
+  color: aliceblue;
+  font-size: 2rem;
+  letter-spacing: 0.5rem;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+  letter-spacing: 1rem;
+  color: white;
+}
+
+body {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: black;
+}
+body #game {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 50vw;
+  height: 45vh;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 4px 4px 19px -5px rgba(255, 225, 0, 0.7), inset -4px -4px 19px -5px rgba(255, 225, 0, 0.7);
+  z-index: 1;
+}
+body #gameSection {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+body #score,
+body #highScore {
+  text-align: center;
+  color: aliceblue;
+  margin-top: 2vh;
+}
+body #start {
+  position: absolute;
+  top: 83%;
+  padding: 1.2rem;
+  border: 12px ridge rgb(31, 103, 103);
+  background-color: rgb(26, 85, 85);
+  cursor: pointer;
+}
+body:active #start {
+  transform: scale(0.9, 0.9);
+}/*# sourceMappingURL=style.css.map */
