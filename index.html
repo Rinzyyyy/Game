@@ -4,24 +4,67 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>canvas_game</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./style/style.css" />
+    <title>canvas game</title>
+    <style>
+      body {
+        display: flex;
+        width: 100vw;
+        align-items: center;
+        justify-content: center;
+      }
+      article {
+        width: 50vw;
+        margin: 8rem;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      a {
+        margin-top: 6rem;
+        text-align: center;
+        width: 30vw;
+        height: 35vh;
+      }
+
+      img {
+        /* object-fit: cover; */
+        width: 30vw;
+        height: 35vh;
+      }
+
+      div {
+        background-color: rgba(0, 0, 0, 0.512);
+        padding: 4rem;
+        position: absolute;
+        top: 10rem;
+        width: 30vw;
+        color: antiquewhite;
+        font-size: 6rem;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+      }
+      div:hover {
+        display: none;
+      }
+    </style>
   </head>
-  <body>
-    <section id="game"></section>
-    <canvas id="gameSection"></canvas>
-    <h1>Hungry?</h1>
-    <p id="score">score : 8</p>
-    <p id="highScore">record : 10</p>
-    <button type="button" id="start">pause</button>
-    <script src="./app.js"></script>
+  <body style="background-color: rgb(80, 78, 78)">
+    <article>
+      <a href="./game-1/hunger.html"
+        ><img src="./hunger_AdobeExpress.gif" alt=""
+      /></a>
+      <div>
+        <p>Hunger?</p>
+      </div>
+    </article>
+    <article>
+      <a href="./game-2/bump.html">
+        <img src="./bumpi_AdobeExpress.gif" alt="" />
+      </a>
+      <div><p>Bumpice!</p></div>
+    </article>
+    >
   </body>
 </html>

@@ -2,6 +2,32 @@ const canvas = document.getElementById("canvas");
 const height = canvas.height;
 const width = canvas.width;
 const ctx = canvas.getContext("2d");
+const img = new Image();
+let imgArr = [
+  {
+    url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/438551/795930/main-image",
+    title: "On the Beach, Sunset",
+    content: "Eugène Boudin French 1865",
+  },
+  {
+    url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/56988/140178/main-image",
+    title: "Ejiri in Suruga Province",
+    content: "Katsushika Hokusai Japanesec 1831",
+  },
+  {
+    url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436155/796065/main-image",
+    title: "The Rehearsal of the Ballet Onstage",
+    content: "Edgar Degas French 1874",
+  },
+  {
+    url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/435691/800026/main-image",
+    title: "Gossip",
+    content: "Giovanni Boldini Italian 1873",
+  },
+];
+let pic = random(0, 4);
+img.src = imgArr[pic].url;
+let blur = 24;
 ctx.lineJoin = "round";
 //color
 ctx.fillStyle = "red";
@@ -24,7 +50,7 @@ const groundH = 5;
 const gpadding = 115;
 let g = { x: (width - groundW) / 2, y: height - groundH - gpadding };
 canvas.addEventListener("mousemove", (e) => {
-  g.x = e.layerX;
+  g.x = Math.floor(e.layerX / 40) * 40;
   if (e.layerX > 1200 - groundW) {
     g.x = 1200 - groundW;
   } //avoid ground beyond context
@@ -75,7 +101,7 @@ let n = -1;
 let result = true;
 
 //draw bricks without Overlapping
-while (brickArray.length < 2) {
+while (brickArray.length < 4) {
   n++;
   result = true;
   x = random(0, width - 50);
@@ -104,22 +130,38 @@ function random(min, max) {
 function drawC() {
   ctx.clearRect(0, 0, width, height);
 
+  //draw background-img
+  ctx.save();
+  ctx.filter = `blur(${blur}px)`;
+  ctx.drawImage(img, 0, 0, width, height);
+  ctx.restore();
+
   //touched brick
   brickArray.forEach((b) => {
     if (b.visible && b.touched(c_x, c_y)) {
       b.visible = false;
       count++;
+      blur -= 6;
       sp.y *= -1;
       ctx.fillStyle = b.color;
       console.log(b.color);
-    }
-    // delete brick splice(start ,deletcount )
-    //brickArray.splice(index,1);
-    if (count == 2) {
-      confirm("time");
-      clearInterval(game);
+
+      if (count == 4) {
+        //draw background-img
+        ctx.filter = `blur(${blur}px)`;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        let title = document.querySelector("h1");
+        title.innerHTML = imgArr[pic].title;
+        let content = document.querySelector("p");
+        content.innerHTML = imgArr[pic].content;
+        clearInterval(game);
+        setTimeout("next()", 3000);
+      }
     }
   });
+  // delete brick splice(start ,deletcount )
+  //brickArray.splice(index,1);
 
   //draw brick
   brickArray.forEach((b) => {
@@ -179,11 +221,11 @@ function drawC() {
 }
 
 // play or pause
-let game = setInterval(drawC, 45);
+let game = setInterval(drawC, 35);
 let pause = false;
 window.addEventListener("keydown", (e) => {
   if (e.key == " " && pause) {
-    game = setInterval(drawC, 45);
+    game = setInterval(drawC, 35);
     pause = false;
   } else if (e.key == " ") {
     clearInterval(game);
@@ -191,7 +233,11 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-if (confirm("time")) {
-  count = 0;
-  game = setInterval(drawC, 45);
+function next() {
+  if (confirm("next?")) {
+    count = 0;
+    location.reload();
+  } else {
+    return;
+  }
 }
