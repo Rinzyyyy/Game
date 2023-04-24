@@ -165,13 +165,13 @@ function draw() {
       snakeY -= unit;
     }
   } else if (d == "Right") {
-    if (snakeX == canvas.width) {
+    if (snakeX >= canvas.width - unit) {
       snakeX = 0;
     } else {
       snakeX += unit;
     }
   } else if (d == "Down") {
-    if (snakeY == canvas.height) {
+    if (snakeY >= canvas.height - unit) {
       snakeY = 0;
     } else {
       snakeY += unit;
