@@ -28,7 +28,7 @@ let imgArr = [
 let pic = random(0, 4);
 img.src = imgArr[pic].url;
 let blur = 24;
-let op = 0.4;
+let op = 0.1;
 ctx.lineJoin = "round";
 //color
 ctx.fillStyle = "red";
@@ -150,7 +150,7 @@ function drawC() {
       b.visible = false;
       count++;
       blur -= 4;
-      op += 0.1;
+      op += 0.15;
       sp.y *= -1;
       ctx.fillStyle = b.color;
       console.log(b.color);
