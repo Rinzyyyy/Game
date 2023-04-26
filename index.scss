@@ -29,9 +29,9 @@ img {
 div {
   background-color: rgba(0, 0, 0, 0.512);
   position: absolute;
-  top: 10rem;
-  width: 35vw;
-  height: 30vw;
+  top: 12rem;
+  width: 40vw;
+  height: 45vh;
   color: antiquewhite;
   font-size: 6rem;
   text-decoration: none;
@@ -54,5 +54,10 @@ a:hover {
   }
   to {
     transform: scale(0);
+  }
+}
+@media only screen and (max-width: 800px) {
+  html {
+    font-size: 8px;
   }
 }
