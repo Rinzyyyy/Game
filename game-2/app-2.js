@@ -28,6 +28,7 @@ let imgArr = [
 let pic = random(0, 4);
 img.src = imgArr[pic].url;
 let blur = 24;
+let op = 0.4;
 ctx.lineJoin = "round";
 //color
 ctx.fillStyle = "red";
@@ -51,9 +52,15 @@ const gpadding = 115;
 let g = { x: (width - groundW) / 2, y: height - groundH - gpadding };
 canvas.addEventListener("mousemove", (e) => {
   g.x = Math.floor(e.layerX / 40) * 40;
-  if (e.layerX > 1200 - groundW) {
-    g.x = 1200 - groundW;
-  } //avoid ground beyond context
+  if (!navigator.userAgent.match("Safari")) {
+    if (e.layerX >= 1000 - groundW) {
+      g.x = 1000 - groundW;
+    }
+  } else {
+    g.x += 420;
+    console.log(g.x);
+  }
+  //avoid ground beyond context
 });
 
 let color = {
@@ -74,8 +81,8 @@ class brick {
   constructor(x, y, n) {
     this.x = x;
     this.y = y;
-    this.width = 50;
-    this.height = 50;
+    this.width = 90;
+    this.height = 90;
     this.visible = true;
     this.color = color[n];
     brickArray.push(this);
@@ -101,17 +108,17 @@ let n = -1;
 let result = true;
 
 //draw bricks without Overlapping
-while (brickArray.length < 4) {
+while (brickArray.length < 6) {
   n++;
   result = true;
-  x = random(0, width - 50);
-  y = random(0, height - 50);
+  x = random(0, width - 90);
+  y = random(0, height - 90);
   for (let j = 0; j < brickArray.length; j++) {
     if (
-      x > brickArray[j].x - 70 &&
-      x < brickArray[j].x + 70 &&
-      y > brickArray[j].y - 70 &&
-      y < brickArray[j].y + 70
+      x > brickArray[j].x - 110 &&
+      x < brickArray[j].x + 110 &&
+      y > brickArray[j].y - 110 &&
+      y < brickArray[j].y + 110
     ) {
       result = false;
       //console.log(n, "no", brickArray.length);
@@ -133,6 +140,7 @@ function drawC() {
   //draw background-img
   ctx.save();
   ctx.filter = `blur(${blur}px)`;
+  ctx.globalAlpha = op;
   ctx.drawImage(img, 0, 0, width, height);
   ctx.restore();
 
@@ -141,12 +149,13 @@ function drawC() {
     if (b.visible && b.touched(c_x, c_y)) {
       b.visible = false;
       count++;
-      blur -= 6;
+      blur -= 4;
+      op += 0.1;
       sp.y *= -1;
       ctx.fillStyle = b.color;
       console.log(b.color);
 
-      if (count == 4) {
+      if (count == 6) {
         //draw background-img
         ctx.filter = `blur(${blur}px)`;
         ctx.drawImage(img, 0, 0, width, height);
